@@ -58,10 +58,17 @@ header {
   text-align: center;
 }
 
-.card-footer .checkboxes {
+/* added default display behaviour */
+.card-footer .requirements {
   display: flex;
   flex-direction: column;
   text-align: left;
+}
+
+/* added default display behaviour */
+.card-footer #warningTxt {
+  display: block;
+  color: red;
 }
 
 .card-footer::before {

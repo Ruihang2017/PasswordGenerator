@@ -21,8 +21,13 @@
       <div class="card-body">
         <textarea readonly id="password" placeholder="Your Secure Password" aria-label="Generated Password"></textarea>
       </div>
+      <!-- added checkbox to simplfy input -->
       <div class="card-footer">
-        <div class="checkboxes">
+        <div class="requirements">
+          <label id="warningTxt"></label>
+          <label for="name">Length of the password (between 8 to 128 digits)<br>
+            <input type="text" id="passwordLength">
+          </label>
           <label><input type="checkbox" id="includeLowercase" />Include Lowercase</label>
           <label><input type="checkbox" id="includeUppercase" />Include Uppercase</label>
           <label><input type="checkbox" id="includeNumeric" />Include Numberic</label>

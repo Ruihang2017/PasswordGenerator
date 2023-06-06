@@ -1,11 +1,16 @@
-// Assignment Code
+// declare variables
 var generateBtn = document.querySelector("#generate");
+generateBtn.disabled = true;
+
 var passwordTextbox = document.getElementById("password");
 
 let includeLowercaseCheckBox = document.getElementById("includeLowercase");
 let includeUppercaseCheckBox = document.getElementById("includeUppercase");
 let includeNumericCheckBox = document.getElementById("includeNumeric");
 let includeSpecialCharactersCheckBox = document.getElementById("includeSpecialCharacters");
+let warningTxt = document.getElementById("warningTxt");
+let passwordLength = document.getElementById("passwordLength");
+
 
 // define a password object with default properties
 let passwordCriteria = {
@@ -13,7 +18,8 @@ let passwordCriteria = {
   includeUppercase: false,
   includeNumeric: false,
   includeSpecialCharacters: false,
-  length: 8
+  length: 8,
+  validPasswordLength: false
 }
 
 
@@ -22,76 +28,78 @@ generateBtn.addEventListener("click", writePassword);
 
 includeLowercaseCheckBox.addEventListener("change", (event) => {
   passwordCriteria.includeLowercase = event.target.checked;
-  // console.log(passwordCriteria)
+  validatePassword();
 })
+
 includeUppercaseCheckBox.addEventListener("change", (event) => {
   passwordCriteria.includeUppercase = event.target.checked;
-  // console.log(passwordCriteria) //delete
-
+  validatePassword();
 })
+
 includeNumericCheckBox.addEventListener("change", (event) => {
   passwordCriteria.includeNumeric = event.target.checked;
-  // console.log(passwordCriteria) //delete
-
+  validatePassword();
 })
+
 includeSpecialCharactersCheckBox.addEventListener("change", (event) => {
   passwordCriteria.includeSpecialCharacters = event.target.checked;
-  // console.log(passwordCriteria) //delete
+  validatePassword();
 })
+
+passwordLength.addEventListener("input", (event) => {
+  // validate the password length input while input
+  let value = event.target.value;
+  if (
+    value === null
+    || value.length === 0
+    || !Number(value)
+    || !Number.isInteger(Number(value))
+    || Number(value) > 128
+    || Number(value) < 8) {
+
+    passwordCriteria.validPasswordLength = false;
+    updateWarningTxt(`"${value}" is an invalid input. \n Please enter a digit between 8 to 128.`)
+
+  } else {
+    passwordCriteria.length = Number(value);
+    passwordCriteria.validPasswordLength = true;
+    updateWarningTxt("")
+  }
+  validatePassword();
+})
+
+
+// update the warning text
+let updateWarningTxt = (text) => {
+  warningTxt.textContent = text;
+}
+
 
 // Write password to the #password input
 function writePassword() {
-  passwordTextbox.textContent = generatePassword(passwordCriteria);
+  passwordTextbox.textContent = generatePassword();
 }
 
-let generatePassword = (passwordCriteria) => {
 
-  // ask for the length of the intended password
-  let res = prompt("What is the length of the intended password. \n Please enter a digit between 8 to 128.")
-  console.log(!Number(res))
-  while (
-    res === null
-    || res.length === 0
-    || !Number(res)
-    || !Number.isInteger(Number(res))
-    || Number(res) > 128
-    || Number(res) < 8) {
+// valid the password, disable the generateBtn for invalid requirements
+let validatePassword = () => {
 
-    res = prompt(`"${res}" is an invalid input. \n Please enter a digit between 8 to 128.`)
+  if (!passwordCriteria.validPasswordLength) {
+    generateBtn.disabled = true;
+    return;
+  } else if (!(passwordCriteria.includeLowercase || passwordCriteria.includeUppercase || passwordCriteria.includeNumeric || passwordCriteria.includeSpecialCharacters)) {
+    updateWarningTxt("At least one character type should be selected.")
+    generateBtn.disabled = true;
+  } else {
+    generateBtn.disabled = false;
+    updateWarningTxt("");
   }
-  passwordCriteria.length = Number(res);
+}
 
-  // check if character types should be include in the password
-  while (
-    !(passwordCriteria.includeLowercase
-      || passwordCriteria.includeUppercase
-      || passwordCriteria.includeNumeric
-      || passwordCriteria.includeSpecialCharacters)) {
-    if (prompt("Whether or not to include lowercase") === null) {
-      passwordCriteria.includeLowercase = false;
-    } else {
-      passwordCriteria.includeLowercase = true;
-    }
 
-    if (prompt("Whether or not to include uppercase") === null) {
-      passwordCriteria.includeUppercase = false;
-    } else {
-      passwordCriteria.includeUppercase = true;
-    }
 
-    if (prompt("Whether or not to include numeric") === null) {
-      passwordCriteria.includeNumeric = false;
-    } else {
-      passwordCriteria.includeNumeric = true;
-    }
-
-    if (prompt("Whether or not to include special characters") === null) {
-      passwordCriteria.includeSpecialCharacters = false;
-    } else {
-      passwordCriteria.includeSpecialCharacters = true;
-    }
-  }
-  console.log(passwordCriteria)
+// generate Password
+let generatePassword = () => {
 
   //Prepare the character Array
   let characters = [
