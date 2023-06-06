@@ -19,7 +19,7 @@ Below, you can find screenshots of the website displaying how it appears on both
 
 ## Deployment
 
-TBD
+https://ruihang2017.github.io/PasswordGenerator/
 
 ## License
 
