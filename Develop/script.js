@@ -2,25 +2,49 @@
 var generateBtn = document.querySelector("#generate");
 var passwordTextbox = document.getElementById("password");
 
-// Add event listener to generate button
+let includeLowercaseCheckBox = document.getElementById("includeLowercase");
+let includeUppercaseCheckBox = document.getElementById("includeUppercase");
+let includeNumericCheckBox = document.getElementById("includeNumeric");
+let includeSpecialCharactersCheckBox = document.getElementById("includeSpecialCharacters");
+
+// define a password object with default properties
+let passwordCriteria = {
+  includeLowercase: false,
+  includeUppercase: false,
+  includeNumeric: false,
+  includeSpecialCharacters: false,
+  length: 8
+}
+
+
+// Add event listeners
 generateBtn.addEventListener("click", writePassword);
+
+includeLowercaseCheckBox.addEventListener("change", (event) => {
+  passwordCriteria.includeLowercase = event.target.checked;
+  // console.log(passwordCriteria)
+})
+includeUppercaseCheckBox.addEventListener("change", (event) => {
+  passwordCriteria.includeUppercase = event.target.checked;
+  // console.log(passwordCriteria) //delete
+
+})
+includeNumericCheckBox.addEventListener("change", (event) => {
+  passwordCriteria.includeNumeric = event.target.checked;
+  // console.log(passwordCriteria) //delete
+
+})
+includeSpecialCharactersCheckBox.addEventListener("change", (event) => {
+  passwordCriteria.includeSpecialCharacters = event.target.checked;
+  // console.log(passwordCriteria) //delete
+})
 
 // Write password to the #password input
 function writePassword() {
-  passwordTextbox.textContent = generatePassword();
+  passwordTextbox.textContent = generatePassword(passwordCriteria);
 }
 
-let generatePassword = () => {
-
-  // define a password object with default properties
-  let passwordCriteria = {
-    includeLowercase: false,
-    includeUppercase: false,
-    includeNumeric: false,
-    includeSpecialCharacters: false,
-    length: 8
-
-  }
+let generatePassword = (passwordCriteria) => {
 
   // ask for the length of the intended password
   let res = prompt("What is the length of the intended password. \n Please enter a digit between 8 to 128.")
