@@ -11,11 +11,11 @@ By using the Challenge-Password Generator, users can easily obtain highly secure
 Below, you can find screenshots of the website displaying how it appears on both desktop and mobile screens.
 
 ### Valid input:
-![Valid input:](Assets/images/Screenshot 2023-06-06 at 11.43.09 pm.png)
+![Valid input:](./Assets/images/Screenshot%202023-06-06%20at%2011.43.09%20pm.png)
 
 ### Invalid input:
-![Invalid input:](Assets/images/Screenshot 2023-06-06 at 11.43.30 pm.png)
-![Invalid input:](Assets/images/Screenshot 2023-06-06 at 11.43.41 pm.png)
+![Invalid input:](./Assets/images/Screenshot%202023-06-06%20at%2011.43.30%20pm.png)
+![Invalid input:](./Assets/images/Screenshot%202023-06-06%20at%2011.43.41%20pm.png)
 
 ## Deployment
 
